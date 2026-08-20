@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elyassen Academy | أكاديمية الياسين</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        font-family: "Cairo", "Poppins", sans-serif;
+        overflow-x: hidden;
+      }
+      .hero-bg {
+        background: linear-gradient(
+          135deg,
+          #090d16 0%,
+          #1e293b 50%,
+          #042f2e 100%
+        );
+      }
+      .glass-card {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .glow-card:hover {
+        box-shadow: 0 0 25px rgba(16, 185, 129, 0.15);
+        border-color: rgba(16, 185, 129, 0.4);
+      }
+      canvas#bg-canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+      .transition-all-custom {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      input:focus,
+      select:focus {
+        box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.3);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between relative"
+  >
+    <!-- شريط الإشعارات العلوي -->
+    <div
+      class="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 text-slate-950 text-center py-2.5 px-4 text-xs sm:text-sm font-extrabold relative z-50 shadow-md"
+    >
+      <span data-i18n="announcementText"
+        >🎁 عرض لفترة محدودة: احجز حصتك التجريبية الأولى مجاناً بالكامل دون أي
+        رسوم مسبقة!</span
+      >
+    </div>
+
+    <!-- Header / Navigation -->
+    <header
+      class="sticky top-0 z-45 bg-slate-950/90 backdrop-blur-md border-b border-slate-800/80 transition-all-custom"
+    >
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between"
+      >
+        <!-- Logo -->
+        <div class="flex items-center gap-3">
+          <div
+            class="w-10 h-10 rounded-xl bg-emerald-500 flex items-center justify-center text-slate-950 font-bold text-xl shadow-lg shadow-emerald-500/20"
+          >
+            <i class="fa-solid fa-book-quran"></i>
+          </div>
+          <span
+            class="text-lg sm:text-xl font-bold tracking-wide text-white truncate max-w-[150px] sm:max-w-none"
+            >Elyassen Academy</span
+          >
+        </div>
+
+        <!-- Navigation Links (Desktop) -->
+        <nav
+          class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-300"
+        >
+          <a
+            href="#about"
+            class="hover:text-emerald-400 transition"
+            data-i18n="navAbout"
+            >عن الأكاديمية</a
+          >
+          <a
+            href="#journey"
+            class="hover:text-emerald-400 transition"
+            data-i18n="navJourney"
+            >كيف نبدأ؟</a
+          >
+          <a
+            href="#features"
+            class="hover:text-emerald-400 transition"
+            data-i18n="navWhyUs"
+            >لماذا نحن</a
+          >
+          <a
+            href="#courses"
+            class="hover:text-emerald-400 transition"
+            data-i18n="navCourses"
+            >الدورات</a
+          >
+          <a
+            href="#faq"
+            class="hover:text-emerald-400 transition"
+            data-i18n="navFaq"
+            >الأسئلة الشائعة</a
+          >
+        </nav>
+
+        <!-- Language Selector & CTA & Mobile Toggle -->
+        <div class="flex items-center gap-2 sm:gap-4">
+          <div
+            class="flex items-center bg-slate-900 rounded-xl p-1 border border-slate-800 text-xs font-semibold"
+          >
+            <button
+              onclick="changeLanguage('ar')"
+              class="px-2.5 py-1 rounded-lg hover:bg-slate-800 text-slate-300 transition"
+            >
+              AR
+            </button>
+            <button
+              onclick="changeLanguage('en')"
+              class="px-2.5 py-1 rounded-lg hover:bg-slate-800 text-slate-300 transition"
+            >
+              EN
+            </button>
+            <button
+              onclick="changeLanguage('fr')"
+              class="px-2.5 py-1 rounded-lg hover:bg-slate-800 text-slate-300 transition"
+            >
+              FR
+            </button>
+          </div>
+          <a
+            href="#enroll"
+            class="hidden sm:inline-flex bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-5 py-2.5 rounded-xl transition shadow-md shadow-emerald-500/20 text-sm items-center gap-2"
+            data-i18n="navEnroll"
+          >
+            حصة مجانية الآن
+          </a>
+          <!-- Mobile Menu Button -->
+          <button
+            id="mobile-menu-btn"
+            class="md:hidden text-slate-300 hover:text-white p-2 focus:outline-none"
+            aria-label="Toggle Menu"
+          >
+            <i class="fa-solid fa-bars text-xl"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Mobile Dropdown Menu -->
+    <div
+      id="mobile-menu"
+      class="hidden fixed inset-x-0 top-20 bg-slate-950/98 backdrop-blur-xl border-b border-slate-800 z-40 p-6 flex flex-col gap-4 md:hidden shadow-2xl transition-all-custom"
+    >
+      <a
+        href="#about"
+        class="mobile-link text-base font-semibold text-slate-300 hover:text-emerald-400 py-2 border-b border-slate-900"
+        data-i18n="navAbout"
+        >عن الأكاديمية</a
+      >
+      <a
+        href="#journey"
+        class="mobile-link text-base font-semibold text-slate-300 hover:text-emerald-400 py-2 border-b border-slate-900"
+        data-i18n="navJourney"
+        >كيف نبدأ؟</a
+      >
+      <a
+        href="#features"
+        class="mobile-link text-base font-semibold text-slate-300 hover:text-emerald-400 py-2 border-b border-slate-900"
+        data-i18n="navWhyUs"
+        >لماذا نحن</a
+      >
+      <a
+        href="#courses"
+        class="mobile-link text-base font-semibold text-slate-300 hover:text-emerald-400 py-2 border-b border-slate-900"
+        data-i18n="navCourses"
+        >الدورات</a
+      >
+      <a
+        href="#faq"
+        class="mobile-link text-base font-semibold text-slate-300 hover:text-emerald-400 py-2 border-b border-slate-900"
+        data-i18n="navFaq"
+        >الأسئلة الشائعة</a
+      >
+      <a
+        href="#enroll"
+        class="mobile-link bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-3 rounded-xl text-center shadow-md shadow-emerald-500/20 text-sm mt-2"
+        data-i18n="navEnroll"
+        >حصة مجانية الآن</a
+      >
+    </div>
+
+    <!-- Hero Section -->
+    <section
+      class="relative hero-bg py-24 lg:py-32 overflow-hidden border-b border-slate-900"
+    >
+      <canvas id="bg-canvas"></canvas>
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center"
+      >
+        <span
+          class="inline-block bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-4 py-1.5 rounded-full text-xs font-bold mb-6 tracking-wide"
+        >
+          ✨ الأكاديمية الرائدة للتعليم الفردي المباشر (1-on-1)
+        </span>
+        <h1
+          class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6 max-w-4xl mx-auto"
+          data-i18n="heroTitle"
+        >
+          أتقن تلاوة القرآن الكريم واللغة العربية
+          <span class="text-emerald-400">بكل إتقان</span>
+        </h1>
+        <p
+          class="text-base sm:text-xl text-slate-300 max-w-2xl mx-auto mb-10 leading-relaxed"
+          data-i18n="heroDesc"
+        >
+          ابدأ رحلتك اليوم مع نخبة من المعلمين المعسّدين المجازين من الأزهر.
+          احجز حصتك التجريبية الأولى مجاناً بالكامل.
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4 mb-16">
+          <a
+            href="#enroll"
+            class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold px-8 py-4 rounded-xl shadow-xl shadow-emerald-500/30 text-lg transition-all-custom transform hover:-translate-y-1"
+            data-i18n="heroBtn"
+          >
+            احجز حصتك التجريبية المجانية الآن
+          </a>
+        </div>
+
+        <!-- Stats Bar -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          <div class="glass-card p-6 rounded-2xl shadow-lg">
+            <div class="text-3xl font-extrabold text-emerald-400 mb-1">
+              +500
+            </div>
+            <div class="text-sm text-slate-300" data-i18n="statStudents">
+              طالب وطالبة حول العالم
+            </div>
+          </div>
+          <div class="glass-card p-6 rounded-2xl shadow-lg">
+            <div class="text-3xl font-extrabold text-emerald-400 mb-1">+50</div>
+            <div class="text-sm text-slate-300" data-i18n="statTutors">
+              معلمون مجازون من الأزهر
+            </div>
+          </div>
+          <div class="glass-card p-6 rounded-2xl shadow-lg">
+            <div class="text-3xl font-extrabold text-emerald-400 mb-1">
+              100%
+            </div>
+            <div class="text-sm text-slate-300" data-i18n="statFreeTrial">
+              أول حصة تجريبية مجانية
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-slate-950">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl font-bold text-white mb-6" data-i18n="aboutTitle">
+          أهلاً بكم في أكاديمية الياسين
+        </h2>
+        <p
+          class="text-amber-400 italic font-semibold text-lg mb-8"
+          data-i18n="aboutQuote"
+        >
+          "نُنيـر القلوب والعقول بنور القرآن وجمال اللغة العربية."
+        </p>
+        <div
+          class="space-y-4 text-slate-300 text-base sm:text-lg leading-relaxed max-w-4xl mx-auto text-justify"
+        >
+          <p data-i18n="aboutP1">
+            في <strong>أكاديمية الياسين</strong>، نؤمن بأن الارتباط بالقرآن
+            الكريم وتعلم اللغة العربية رحلة تحول حياة الإنسان. صُممت أكاديميتنا
+            خصيصاً للأطفال، البالغين، وغير الناطقين بالعربية حول العالم لنقل
+            التعليم الإسلامي الأصيل إلى منزلك بكل سهولة.
+          </p>
+          <p data-i18n="aboutP2">
+            بفضل نخبة من المعلمين المجازين من الأزهر الشريف، والمناهج المجهزة
+            بعناية، والحصص الفردية المباشرة (1 إلى 1)، نساعد الطلاب من جميع
+            الأعمار على إتقان التلاوة بالتجويد وتحدث العربية بثقة تامة.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Learning Journey Section (New Feature) -->
+    <section
+      id="journey"
+      class="py-20 bg-slate-900/50 border-t border-b border-slate-900"
+    >
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2
+            class="text-3xl font-bold text-white mb-3"
+            data-i18n="journeyTitle"
+          >
+            كيف تبدأ رحلتك معنا في 3 خطوات بسيطة؟
+          </h2>
+          <p class="text-slate-400 text-sm" data-i18n="journeySubtitle">
+            الأمر أسهل مما تتخيل، ابدأ رحلتك التعليمية الآن
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div
+            class="bg-slate-900 p-8 rounded-2xl border border-slate-800 text-center relative glow-card transition-all-custom"
+          >
+            <div
+              class="w-16 h-16 bg-emerald-500/10 text-emerald-400 rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-6 border border-emerald-500/20"
+            >
+              1
+            </div>
+            <h3
+              class="text-xl font-bold text-white mb-3"
+              data-i18n="step1Title"
+            >
+              املأ نموذج الحجز
+            </h3>
+            <p
+              class="text-slate-400 text-sm leading-relaxed"
+              data-i18n="step1Desc"
+            >
+              اختر الدورة المناسبة لك وسجل بياناتك في ثوانٍ معدودة بدون أي رسوم.
+            </p>
+          </div>
+          <div
+            class="bg-slate-900 p-8 rounded-2xl border border-slate-800 text-center relative glow-card transition-all-custom"
+          >
+            <div
+              class="w-16 h-16 bg-emerald-500/10 text-emerald-400 rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-6 border border-emerald-500/20"
+            >
+              2
+            </div>
+            <h3
+              class="text-xl font-bold text-white mb-3"
+              data-i18n="step2Title"
+            >
+              تواصل وحصتك التجريبية
+            </h3>
+            <p
+              class="text-slate-400 text-sm leading-relaxed"
+              data-i18n="step2Desc"
+            >
+              سيتم تحويلك فوراً للواتساب لتنسيق موعد حصتك التجريبية المجانية مع
+              المعلم.
+            </p>
+          </div>
+          <div
+            class="bg-slate-900 p-8 rounded-2xl border border-slate-800 text-center relative glow-card transition-all-custom"
+          >
+            <div
+              class="w-16 h-16 bg-emerald-500/10 text-emerald-400 rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-6 border border-emerald-500/20"
+            >
+              3
+            </div>
+            <h3
+              class="text-xl font-bold text-white mb-3"
+              data-i18n="step3Title"
+            >
+              ابدأ رحلة الإتقان
+            </h3>
+            <p
+              class="text-slate-400 text-sm leading-relaxed"
+              data-i18n="step3Desc"
+            >
+              ابدأ حضور دروسك بانتظام وتمتع بمتابعة دورية وتقارير مستمرة لتطور
+              مستواك.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-slate-950">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2
+          class="text-3xl font-bold text-center text-white mb-16"
+          data-i18n="featuresTitle"
+        >
+          لماذا تختار أكاديمية الياسين؟
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div
+            class="bg-slate-900 p-8 rounded-2xl border border-slate-800 text-center glow-card transition-all-custom"
+          >
+            <div
+              class="w-14 h-14 bg-emerald-500/10 text-emerald-400 rounded-xl flex items-center justify-center text-2xl mx-auto mb-6"
+            >
+              <i class="fa-solid fa-user-graduate"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3" data-i18n="f1Title">
+              معلمون مجازون
+            </h3>
+            <p
+              class="text-slate-400 text-sm leading-relaxed"
+              data-i18n="f1Desc"
+            >
+              معلمون معتمدون من الأزهر الشريف يحملون إجازات بالسند المتصل في
+              القرآن والتجويد.
+            </p>
+          </div>
+          <div
+            class="bg-slate-900 p-8 rounded-2xl border border-slate-800 text-center glow-card transition-all-custom"
+          >
+            <div
+              class="w-14 h-14 bg-emerald-500/10 text-emerald-400 rounded-xl flex items-center justify-center text-2xl mx-auto mb-6"
+            >
+              <i class="fa-solid fa-chalkboard-user"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3" data-i18n="f2Title">
+              دروس فردية 1-on-1
+            </h3>
+            <p
+              class="text-slate-400 text-sm leading-relaxed"
+              data-i18n="f2Desc"
+            >
+              خطط تعليمية مخصصة تناسب مستوى ووتيرة تعلم كل طالب بشكل منفرد
+              بالكامل.
+            </p>
+          </div>
+          <div
+            class="bg-slate-900 p-8 rounded-2xl border border-slate-800 text-center glow-card transition-all-custom"
+          >
+            <div
+              class="w-14 h-14 bg-emerald-500/10 text-emerald-400 rounded-xl flex items-center justify-center text-2xl mx-auto mb-6"
+            >
+              <i class="fa-solid fa-chart-line"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3" data-i18n="f3Title">
+              تقارير دورية
+            </h3>
+            <p
+              class="text-slate-400 text-sm leading-relaxed"
+              data-i18n="f3Desc"
+            >
+              تقارير تقييمية منتظمة لمتابعة مستوى تطور الطلاب بدقة لأولياء
+              الأمور.
+            </p>
+          </div>
+          <div
+            class="bg-slate-900 p-8 rounded-2xl border border-slate-800 text-center glow-card transition-all-custom"
+          >
+            <div
+              class="w-14 h-14 bg-emerald-500/10 text-emerald-400 rounded-xl flex items-center justify-center text-2xl mx-auto mb-6"
+            >
+              <i class="fa-solid fa-clock"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3" data-i18n="f4Title">
+              مواعيد مرنة 24/7
+            </h3>
+            <p
+              class="text-slate-400 text-sm leading-relaxed"
+              data-i18n="f4Desc"
+            >
+              اختر الأوقات التي تناسب جدولك الشخصي اليومي عبر مختلف المناطق
+              الزمنية بالعالم.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section
+      id="courses"
+      class="py-20 bg-slate-900/40 border-t border-slate-900"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2
+          class="text-3xl font-bold text-center text-white mb-16"
+          data-i18n="coursesTitle"
+        >
+          برامجنا التعليمية المتخصصة
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div
+            class="bg-slate-900 p-8 rounded-2xl border border-slate-800 flex flex-col justify-between glow-card transition-all-custom"
+          >
+            <div>
+              <h3
+                class="text-2xl font-bold text-white mb-4"
+                data-i18n="c1Title"
+              >
+                📖 حفظ القرآن الكريم وتلاوته
+              </h3>
+              <p
+                class="text-slate-300 text-base leading-relaxed mb-6"
+                data-i18n="c1Desc"
+              >
+                تعلم أحكام التجويد الصحيحة، المخارج السليمة للحروف، وحفظ كتاب
+                الله مع معلمين متمرسين.
+              </p>
+            </div>
+            <a
+              href="#enroll"
+              class="text-emerald-400 font-bold flex items-center gap-2 hover:gap-3 transition-all-custom text-sm"
+            >
+              <span data-i18n="enrollNowText">احجز حصتك المجانية</span>
+              <i class="fa-solid fa-arrow-left"></i>
+            </a>
+          </div>
+          <div
+            class="bg-slate-900 p-8 rounded-2xl border border-slate-800 flex flex-col justify-between glow-card transition-all-custom"
+          >
+            <div>
+              <h3
+                class="text-2xl font-bold text-white mb-4"
+                data-i18n="c2Title"
+              >
+                🗣️ اللغة العربية الفصحى
+              </h3>
+              <p
+                class="text-slate-300 text-base leading-relaxed mb-6"
+                data-i18n="c2Desc"
+              >
+                دورات متكاملة في القراءة، الكتابة، المحادثة، وقواعد النحو من
+                المستوى المبتدئ وحتى الإتقان.
+              </p>
+            </div>
+            <a
+              href="#enroll"
+              class="text-emerald-400 font-bold flex items-center gap-2 hover:gap-3 transition-all-custom text-sm"
+            >
+              <span data-i18n="enrollNowText">احجز حصتك المجانية</span>
+              <i class="fa-solid fa-arrow-left"></i>
+            </a>
+          </div>
+          <div
+            class="bg-slate-900 p-8 rounded-2xl border border-slate-800 flex flex-col justify-between glow-card transition-all-custom"
+          >
+            <div>
+              <h3
+                class="text-2xl font-bold text-white mb-4"
+                data-i18n="c3Title"
+              >
+                👶 القرآن والعربية للأطفال
+              </h3>
+              <p
+                class="text-slate-300 text-base leading-relaxed mb-6"
+                data-i18n="c3Desc"
+              >
+                رحلات تعليمية ممتعة وتفاعلية صُممت خصيصاً لجذب وتعليم الأطفال
+                وتحبيبهم في القرآن.
+              </p>
+            </div>
+            <a
+              href="#enroll"
+              class="text-emerald-400 font-bold flex items-center gap-2 hover:gap-3 transition-all-custom text-sm"
+            >
+              <span data-i18n="enrollNowText">احجز حصتك المجانية</span>
+              <i class="fa-solid fa-arrow-left"></i>
+            </a>
+          </div>
+          <div
+            class="bg-slate-900 p-8 rounded-2xl border border-slate-800 flex flex-col justify-between glow-card transition-all-custom"
+          >
+            <div>
+              <h3
+                class="text-2xl font-bold text-white mb-4"
+                data-i18n="c4Title"
+              >
+                🎓 القرآن والعربية للكبار
+              </h3>
+              <p
+                class="text-slate-300 text-base leading-relaxed mb-6"
+                data-i18n="c4Desc"
+              >
+                برامج خاصة ومخصصة للبالغين والمستجيبين الجدد للإسلام لتعلم
+                التجويد والطلاقة في الوقت المناسب لهم.
+              </p>
+            </div>
+            <a
+              href="#enroll"
+              class="text-emerald-400 font-bold flex items-center gap-2 hover:gap-3 transition-all-custom text-sm"
+            >
+              <span data-i18n="enrollNowText">احجز حصتك المجانية</span>
+              <i class="fa-solid fa-arrow-left"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="py-20 bg-slate-950">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2
+            class="text-3xl font-bold text-white mb-3"
+            data-i18n="reviewsTitle"
+          >
+            آراء وتوصيات أولياء الأمور والطلاب
+          </h2>
+          <p class="text-slate-400" data-i18n="reviewsSubtitle">
+            تجارب حقيقية من مجتمعنا حول العالم
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div
+            class="bg-slate-900 p-8 rounded-2xl border border-slate-800 shadow-lg"
+          >
+            <div class="text-amber-400 mb-4 text-sm flex gap-1">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p
+              class="text-slate-300 text-sm leading-relaxed mb-6"
+              data-i18n="r1Text"
+            >
+              "الحمد لله، ابني أتم حفظ جزأين في مدة قصيرة بفضل المعلم الرائع.
+              الحصة التجريبية المجانية شجعتنا كثيراً على البدء!"
+            </p>
+            <span
+              class="text-xs font-semibold text-emerald-400"
+              data-i18n="r1Info"
+              >ولي أمر من المملكة المتحدة</span
+            >
+          </div>
+          <div
+            class="bg-slate-900 p-8 rounded-2xl border border-slate-800 shadow-lg"
+          >
+            <div class="text-amber-400 mb-4 text-sm flex gap-1">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p
+              class="text-slate-300 text-sm leading-relaxed mb-6"
+              data-i18n="r2Text"
+            >
+              "كمسلم جديد في أمريكا، كان تعلم العربية والتجويد يبدو صعباً حتى
+              وجدت أكاديمية الياسين. المعلمون محترفون جداً."
+            </p>
+            <span
+              class="text-xs font-semibold text-emerald-400"
+              data-i18n="r2Info"
+              >طالب بالغ من الولايات المتحدة الأمريكية</span
+            >
+          </div>
+          <div
+            class="bg-slate-900 p-8 rounded-2xl border border-slate-800 shadow-lg"
+          >
+            <div class="text-amber-400 mb-4 text-sm flex gap-1">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p
+              class="text-slate-300 text-sm leading-relaxed mb-6"
+              data-i18n="r3Text"
+            >
+              "التقارير الدورية ممتازة وتجعلني مطلعاً على تطور ابنتي أسبوعياً.
+              أنصح الجميع بتجربة الحصة المجانية."
+            </p>
+            <span
+              class="text-xs font-semibold text-emerald-400"
+              data-i18n="r3Info"
+              >ولي أمر من كندا</span
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section (New Feature) -->
+    <section id="faq" class="py-20 bg-slate-900/40 border-t border-slate-900">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl font-bold text-white mb-3" data-i18n="faqTitle">
+            الأسئلة الشائعة
+          </h2>
+          <p class="text-slate-400 text-sm" data-i18n="faqSubtitle">
+            كل ما تحتاج معرفته قبل البدء معنا
+          </p>
+        </div>
+        <div class="space-y-4">
+          <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800">
+            <h3 class="text-lg font-bold text-white mb-2" data-i18n="faq1Q">
+              هل الحصة التجريبية الأولى مجانية حقاً؟
+            </h3>
+            <p class="text-slate-300 text-sm leading-relaxed" data-i18n="faq1A">
+              نعم بالتأكيد! الحصة الأولى مجانية بالكامل بدون أي رسوم أو التزامات
+              مسبقة، لتحديد مستواك أو مستوى طفلك واختيار المعلم المناسب.
+            </p>
+          </div>
+          <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800">
+            <h3 class="text-lg font-bold text-white mb-2" data-i18n="faq2Q">
+              ما هي المنصة المستخدمة للدروس؟
+            </h3>
+            <p class="text-slate-300 text-sm leading-relaxed" data-i18n="faq2A">
+              تتم الدروس عبر تطبيق Zoom أو Google Meet بجودة صوت وصورة عالية، مع
+              إمكانية مشاركة الشاشة ومصحف إلكتروني تفاعلي.
+            </p>
+          </div>
+          <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800">
+            <h3 class="text-lg font-bold text-white mb-2" data-i18n="faq3Q">
+              هل يتوفر معلمات نساء للأطفال والنساء؟
+            </h3>
+            <p class="text-slate-300 text-sm leading-relaxed" data-i18n="faq3A">
+              نعم، توفر الأكاديمية معلمات مجازات متخصصات لتدريس النساء والأطفال
+              لضمان الراحة التامة.
+            </p>
+          </div>
+          <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800">
+            <h3 class="text-lg font-bold text-white mb-2" data-i18n="faq4Q">
+              كيف يتم سداد رسوم الباقات بعد الحصة المجانية؟
+            </h3>
+            <p class="text-slate-300 text-sm leading-relaxed" data-i18n="faq4A">
+              نوفر وسائل دفع آمنة ومتعددة تناسب مختلف الدول (بطاقات بانككية،
+              تحويلات، وسائل دفع محلية ودولية) ويتم تنسيقها بسهولة عبر الواتساب.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Form Section / Registration -->
+    <section id="enroll" class="py-20 bg-slate-950">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          class="bg-slate-900 p-8 sm:p-12 rounded-3xl border border-slate-800 shadow-2xl backdrop-blur-xl"
+        >
+          <div class="text-center mb-8">
+            <span
+              class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-full text-xs font-bold mb-3 inline-block"
+              data-i18n="formBadge"
+            >
+              ⚡ احجز الآن بدون رسوم
+            </span>
+            <h2
+              class="text-3xl font-extrabold text-white mb-2"
+              data-i18n="contactTitle"
+            >
+              احجز حصتك التجريبية المجانية
+            </h2>
+            <p class="text-slate-400 text-sm" data-i18n="contactSubtitle">
+              املأ البيانات أدناه وسيتم تحويلك فوراً لتنسيق الموعد عبر الواتساب!
+            </p>
+          </div>
+
+          <form onsubmit="handleRegistration(event)" class="space-y-6">
+            <input
+              type="hidden"
+              id="formspreeUrl"
+              value="https://formspree.io/f/mvkplgep"
+            />
+
+            <div>
+              <label
+                class="block text-sm font-semibold text-slate-300 mb-2"
+                data-i18n="labelName"
+                >الاسم الكامل</label
+              >
+              <input
+                type="text"
+                id="inputName"
+                name="name"
+                required
+                placeholder="الاسم الكامل"
+                class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition-all-custom"
+              />
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div class="col-span-1">
+                <label
+                  class="block text-sm font-semibold text-slate-300 mb-2"
+                  data-i18n="labelCountryCode"
+                  >كود الدولة</label
+                >
+                <select
+                  id="countryCode"
+                  name="country_code"
+                  class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-3.5 text-white focus:outline-none focus:border-emerald-500 transition-all-custom"
+                >
+                  <option value="+20">🇪🇬 +20</option>
+                  <option value="+966">🇸🇦 +966</option>
+                  <option value="+971">🇦🇪 +971</option>
+                  <option value="+1">🇺🇸 +1</option>
+                  <option value="+44">🇬🇧 +44</option>
+                  <option value="+33">🇫🇷 +33</option>
+                  <option value="+49">🇩🇪 +49</option>
+                </select>
+              </div>
+              <div class="col-span-1 sm:col-span-2">
+                <label
+                  class="block text-sm font-semibold text-slate-300 mb-2"
+                  data-i18n="labelPhone"
+                  >رقم الهاتف / واتساب</label
+                >
+                <input
+                  type="tel"
+                  id="inputPhone"
+                  name="phone"
+                  required
+                  placeholder="رقم الهاتف / واتساب"
+                  class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition-all-custom"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label
+                class="block text-sm font-semibold text-slate-300 mb-2"
+                data-i18n="optSelect"
+                >اختر الدورة المطلوبة</label
+              >
+              <select
+                id="selectCourse"
+                name="course"
+                class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-emerald-500 transition-all-custom"
+              >
+                <option value="quran" data-i18n="optQuran">
+                  القرآن والتجويد
+                </option>
+                <option value="arabic" data-i18n="optArabic">
+                  اللغة العربية
+                </option>
+                <option value="kids" data-i18n="optKids">
+                  القرآن والعربية للأطفال
+                </option>
+                <option value="adults" data-i18n="optAdults">
+                  القرآن والعربية للكبار
+                </option>
+              </select>
+            </div>
+
+            <button
+              type="submit"
+              id="submitBtn"
+              class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold py-4 rounded-xl shadow-lg shadow-emerald-500/25 text-lg transition-all-custom flex items-center justify-center gap-2"
+              data-i18n="contactBtn"
+            >
+              احصل على الحصة المجانية وانتقل للواتساب
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- WhatsApp Floating Button -->
+    <a
+      href="https://wa.me/201501040375"
+      target="_blank"
+      class="fixed bottom-6 right-6 w-14 h-14 bg-emerald-500 text-slate-950 rounded-full flex items-center justify-center shadow-2xl z-50 text-2xl hover:scale-110 transition-all-custom shadow-emerald-500/40"
+      aria-label="Contact via WhatsApp"
+    >
+      <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer
+      class="bg-slate-950 border-t border-slate-900 py-8 text-center text-slate-500 text-sm"
+    >
+      <div class="max-w-7xl mx-auto px-4" data-i18n="footerText">
+        © 2026 أكاديمية الياسين. جميع الحقوق محفوظة.
+      </div>
+    </footer>
+
+    <!-- Javascript Logic -->
+    <script>
+      const ADMIN_WHATSAPP = "201501040375";
+
+      // Mobile Menu Toggle
+      const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const mobileLinks = document.querySelectorAll(".mobile-link");
+
+      if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener("click", () => {
+          mobileMenu.classList.toggle("hidden");
+        });
+
+        mobileLinks.forEach((link) => {
+          link.addEventListener("click", () => {
+            mobileMenu.classList.add("hidden");
+          });
+        });
+      }
+
+      async function handleRegistration(event) {
+        event.preventDefault();
+
+        const submitBtn = document.getElementById("submitBtn");
+        const currentLang = document.documentElement.lang || "ar";
+
+        const processingTexts = {
+          ar: "جاري حفظ البيانات وتحويلك للواتساب لحجز الحصة المجانية...",
+          en: "Saving data and redirecting to WhatsApp for your free class...",
+          fr: "Enregistrement et redirection vers WhatsApp...",
+        };
+
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.innerText =
+            processingTexts[currentLang] || processingTexts["ar"];
+        }
+
+        const name = document.getElementById("inputName").value.trim();
+        const countryCode = document.getElementById("countryCode").value;
+        const phone = document.getElementById("inputPhone").value.trim();
+        const courseSelect = document.getElementById("selectCourse");
+        const course = courseSelect.options[courseSelect.selectedIndex].text;
+        const fullPhone = `${countryCode} ${phone}`;
+        const formspreeUrl = document.getElementById("formspreeUrl").value;
+
+        try {
+          await fetch(formspreeUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name: name,
+              phone: fullPhone,
+              course: course,
+              note: "Requested Free Trial Class",
+            }),
+          });
+        } catch (error) {
+          console.log("Background send error:", error);
+        }
+
+        const waMessage = encodeURIComponent(
+          `السلام عليكم ورحمة الله وبركاته،\n` +
+            `أرغب في حجز الحصة التجريبية المجانية للأكاديمية.\n\n` +
+            `👤 الاسم: ${name}\n` +
+            `📞 الهاتف: ${fullPhone}\n` +
+            `📚 الدورة المطلوبة: ${course}`
+        );
+
+        const whatsappUrl = `https://wa.me/${ADMIN_WHATSAPP}?text=${waMessage}`;
+
+        setTimeout(() => {
+          window.location.href = whatsappUrl;
+        }, 500);
+      }
+
+      const translations = {
+        en: {
+          announcementText:
+            "🎁 Special Limited Offer: Book your first trial class completely FREE with no upfront fees!",
+          navAbout: "About Us",
+          navJourney: "How It Works",
+          navWhyUs: "Why Us",
+          navCourses: "Courses",
+          navFaq: "FAQ",
+          navEnroll: "Free Trial",
+          heroTitle:
+            "Master Quran Recitation & Arabic Language with Confidence",
+          heroDesc:
+            "Start your journey today with elite, Al-Azhar certified native tutors. Book your first trial class 100% free.",
+          heroBtn: "Book Free Trial Class Now",
+          statStudents: "Active Worldwide Students",
+          statTutors: "Al-Azhar Certified Tutors",
+          statFreeTrial: "First Trial Class Free",
+          aboutTitle: "Welcome to Elyassen Academy",
+          aboutQuote:
+            '"Nurturing Hearts & Minds with the Light of the Quran and the Beauty of Arabic."',
+          aboutP1:
+            "At <strong>Elyassen Academy</strong>, we believe connecting with the Holy Quran and understanding Arabic is a life-changing journey. Designed for kids, adults, and non-Arabic speakers globally, bringing authentic Islamic education right to your home.",
+          aboutP2:
+            "With elite Al-Azhar certified tutors, structured curricula, and live 1-on-1 private sessions, we help students of all ages master recitation with Tajweed and speak Arabic fluently.",
+          journeyTitle: "How to Start Your Journey in 3 Simple Steps?",
+          journeySubtitle: "It's easier than you think. Get started today!",
+          step1Title: "Fill Booking Form",
+          step1Desc:
+            "Choose your preferred course and enter your details in seconds with zero fees.",
+          step2Title: "Connect & Free Trial",
+          step2Desc:
+            "You will be redirected to WhatsApp instantly to schedule your free trial class with a tutor.",
+          step3Title: "Start Learning",
+          step3Desc:
+            "Begin regular classes and enjoy continuous follow-up reports on your progress.",
+          featuresTitle: "Why Choose Elyassen Academy?",
+          f1Title: "Certified Tutors",
+          f1Desc:
+            "Al-Azhar certified native tutors with Ijazah in Quranic recitation and Tajweed.",
+          f2Title: "1-on-1 Private Classes",
+          f2Desc:
+            "Personalized learning plans tailored precisely to your personal pace.",
+          f3Title: "Progress Reports",
+          f3Desc:
+            "Regular evaluation reports to track continuous improvement for all age groups.",
+          f4Title: "Flexible Timing 24/7",
+          f4Desc:
+            "Choose class times that fit your family schedule across different global time zones.",
+          coursesTitle: "Our Specialized Educational Programs",
+          c1Title: "📖 Quran Memorization & Recitation",
+          c1Desc:
+            "Learn proper Tajweed rules, correct phonetic pronunciation, and memorize the Quran with expert tutors.",
+          c2Title: "🗣️ Modern Standard Arabic",
+          c2Desc:
+            "Comprehensive courses covering reading, writing, speaking, and grammar from scratch to fluency.",
+          c3Title: "👶 Quran & Arabic for Kids",
+          c3Desc:
+            "Fun, engaging interactive learning journeys designed specifically to attract and teach young minds.",
+          c4Title: "🎓 Quran & Arabic for Adults",
+          c4Desc:
+            "Tailored programs for adults and reverts to learn Tajweed and Arabic fluency at their own comfortable pace.",
+          enrollNowText: "Book Free Class",
+          reviewsTitle: "What Parents & Students Say",
+          reviewsSubtitle: "Real experiences from our global community",
+          r1Text:
+            '"Alhamdulillah, my son memorized 2 Juz quickly thanks to the wonderful teacher. The free trial encouraged us to start!"',
+          r1Info: "Parent from United Kingdom",
+          r2Text:
+            '"As a revert in America, learning Arabic and Tajweed felt daunting until I found Elyassen Academy. Highly professional!"',
+          r2Info: "Adult Student from USA",
+          r3Text:
+            '"Regular reports keep me fully updated on my daughter\'s weekly progress. Highly recommend trying the free class."',
+          r3Info: "Parent from Canada",
+          faqTitle: "Frequently Asked Questions",
+          faqSubtitle: "Everything you need to know before joining us",
+          faq1Q: "Is the first trial class really free?",
+          faq1A:
+            "Yes, absolutely! The first session is completely free with no obligations or upfront fees, helping assess your level and match you with the right tutor.",
+          faq2Q: "What platform is used for the live classes?",
+          faq2A:
+            "Classes are held via Zoom or Google Meet with high audio/video quality, featuring screen sharing and interactive digital Mushaf.",
+          faq3Q: "Are female tutors available for women and children?",
+          faq3A:
+            "Yes, the academy provides certified female specialized tutors for female students and children to ensure complete privacy and comfort.",
+          faq4Q: "How do package payments work after the free trial?",
+          faq4A:
+            "We offer secure and flexible payment methods suitable for different countries (cards, bank transfers), easily coordinated via WhatsApp.",
+          formBadge: "⚡ Free Booking - No Fees",
+          contactTitle: "Book Your Free Trial Lesson",
+          contactSubtitle:
+            "Fill out the details below and get redirected to WhatsApp instantly!",
+          labelName: "Full Name",
+          labelCountryCode: "Country Code",
+          labelPhone: "Phone / WhatsApp Number",
+          optSelect: "Select Course",
+          optQuran: "Quran & Tajweed",
+          optArabic: "Arabic Language",
+          optKids: "Quran & Arabic for Kids",
+          optAdults: "Quran & Arabic for Adults",
+          contactBtn: "Get Free Class & Open WhatsApp",
+          inputNameHolder: "Full Name",
+          inputPhoneHolder: "Phone / WhatsApp Number",
+          footerText: "© 2026 Elyassen Academy. All Rights Reserved.",
+        },
+        ar: {
+          announcementText:
+            "🎁 عرض لفترة محدودة: احجز حصتك التجريبية الأولى مجاناً بالكامل دون أي رسوم مسبقة!",
+          navAbout: "عن الأكاديمية",
+          navJourney: "كيف نبدأ؟",
+          navWhyUs: "لماذا نحن",
+          navCourses: "الدورات",
+          navFaq: "الأسئلة الشائعة",
+          navEnroll: "حصة مجانية",
+          heroTitle: "أتقن تلاوة القرآن الكريم واللغة العربية بكل إتقان",
+          heroDesc:
+            "ابدأ رحلتك اليوم مع نخبة من المعلمين المعسّدين المجازين من الأزهر. احجز حصتك التجريبية الأولى مجاناً بالكامل.",
+          heroBtn: "احجز حصتك التجريبية المجانية الآن",
+          statStudents: "طالب وطالبة حول العالم",
+          statTutors: "معلمون مجازون من الأزهر",
+          statFreeTrial: "أول حصة تجريبية مجانية",
+          aboutTitle: "أهلاً بكم في أكاديمية الياسين",
+          aboutQuote:
+            '"نُنيـر القلوب والعقول بنور القرآن وجمال اللغة العربية."',
+          aboutP1:
+            "في <strong>أكاديمية الياسين</strong>، نؤمن بأن الارتباط بالقرآن الكريم وتعلم اللغة العربية رحلة تحول حياة الإنسان. صُممت أكاديميتنا خصيصاً للأطفال، البالغين، وغير الناطقين بالعربية حول العالم لنقل التعليم الإسلامي الأصيل إلى منزلك بكل سهولة.",
+          aboutP2:
+            "بفضل نخبة من المعلمين المجازين من الأزهر الشريف، والمناهج المجهزة بعناية، والحصص الفردية المباشرة (1 إلى 1)، نساعد الطلاب من جميع الأعمار على إتقان التلاوة بالتجويد وتحدث العربية بثقة تامة.",
+          journeyTitle: "كيف تبدأ رحلتك معنا في 3 خطوات بسيطة؟",
+          journeySubtitle: "الأمر أسهل مما تتخيل، ابدأ رحلتك التعليمية الآن",
+          step1Title: "املأ نموذج الحجز",
+          step1Desc:
+            "اختر الدورة المناسبة لك وسجل بياناتك في ثوانٍ معدودة بدون أي رسوم.",
+          step2Title: "تواصل وحصتك التجريبية",
+          step2Desc:
+            "سيتم تحويلك فوراً للواتساب لتنسيق موعد حصتك التجريبية المجانية مع المعلم.",
+          step3Title: "ابدأ رحلة الإتقان",
+          step3Desc:
+            "ابدأ حضور دروسك بانتظام وتمتع بمتابعة دورية وتقارير مستمرة لتطور مستواك.",
+          featuresTitle: "لماذا تختار أكاديمية الياسين؟",
+          f1Title: "معلمون مجازون",
+          f1Desc:
+            "معلمون معتمدون من الأزهر الشريف يحملون إجازات بالسند المتصل في القرآن والتجويد.",
+          f2Title: "دروس فردية 1-on-1",
+          f2Desc:
+            "خطط تعليمية مخصصة تناسب مستوى ووتيرة تعلم كل طالب بشكل منفرد بالكامل.",
+          f3Title: "تقارير دورية",
+          f3Desc:
+            "تقارير تقييمية منتظمة لمتابعة مستوى تطور الطلاب بدقة لأولياء الأمور.",
+          f4Title: "مواعيد مرنة 24/7",
+          f4Desc:
+            "اختر الأوقات التي تناسب جدولك الشخصي اليومي عبر مختلف المناطق الزمنية بالعالم.",
+          coursesTitle: "برامجنا التعليمية المتخصصة",
+          c1Title: "📖 حفظ القرآن الكريم وتلاوته",
+          c1Desc:
+            "تعلم أحكام التجويد الصحيحة، المخارج السليمة للحروف، وحفظ كتاب الله مع معلمين متمرسين.",
+          c2Title: "🗣️ اللغة العربية الفصحى",
+          c2Desc:
+            "دورات متكاملة في القراءة، الكتابة، المحادثة، وقواعد النحو من المستوى المبتدئ وحتى الإتقان.",
+          c3Title: "👶 القرآن والعربية للأطفال",
+          c3Desc:
+            "رحلات تعليمية ممتعة وتفاعلية صُممت خصيصاً لجذب وتعليم الأطفال وتحبيبهم في القرآن.",
+          c4Title: "🎓 القرآن والعربية للكبار",
+          c4Desc:
+            "برامج خاصة ومخصصة للبالغين والمستجيبين الجدد للإسلام لتعلم التجويد والطلاقة في الوقت المناسب لهم.",
+          enrollNowText: "احجز حصتك المجانية",
+          reviewsTitle: "آراء وتوصيات أولياء الأمور والطلاب",
+          reviewsSubtitle: "تجارب حقيقية من مجتمعنا حول العالم",
+          r1Text:
+            '"الحمد لله، ابني أتم حفظ جزأين في مدة قصيرة بفضل المعلم الرائع. الحصة التجريبية المجانية شجعتنا كثيراً على البدء!"',
+          r1Info: "ولي أمر من المملكة المتحدة",
+          r2Text:
+            '"كمسلم جديد في أمريكا، كان تعلم العربية والتجويد يبدو صعباً حتى وجدت أكاديمية الياسين. المعلمون محترفون جداً."',
+          r2Info: "طالب بالغ من الولايات المتحدة الأمريكية",
+          r3Text:
+            '"التقارير الدورية ممتازة وتجعلني مطلعاً على تطور ابنتي أسبوعياً. أنصح الجميع بتجربة الحصة المجانية."',
+          r3Info: "ولي أمر من كندا",
+          faqTitle: "الأسئلة الشائعة",
+          faqSubtitle: "كل ما تحتاج معرفته قبل البدء معنا",
+          faq1Q: "هل الحصة التجريبية الأولى مجانية حقاً؟",
+          faq1A:
+            "نعم بالتأكيد! الحصة الأولى مجانية بالكامل بدون أي رسوم أو التزامات مسبقة، لتحديد مستواك أو مستوى طفلك واختيار المعلم المناسب.",
+          faq2Q: "ما هي المنصة المستخدمة للدروس؟",
+          faq2A:
+            "تتم الدروس عبر تطبيق Zoom أو Google Meet بجودة صوت وصورة عالية، مع إمكانية مشاركة الشاشة ومصحف إلكتروني تفاعلي.",
+          faq3Q: "هل يتوفر معلمات نساء للأطفال والنساء؟",
+          faq3A:
+            "نعم، توفر الأكاديمية معلمات مجازات متخصصات لتدريس النساء والأطفال لضمان الراحة التامة.",
+          faq4Q: "كيف يتم سداد رسوم الباقات بعد الحصة المجانية؟",
+          faq4A:
+            "نوفر وسائل دفع آمنة ومتعددة تناسب مختلف الدول (بطاقات بانككية، تحويلات، وسائل دفع محلية ودولية) ويتم تنسيقها بسهولة عبر الواتساب.",
+          formBadge: "⚡ احجز الآن بدون رسوم",
+          contactTitle: "احجز حصتك التجريبية المجانية",
+          contactSubtitle:
+            "املأ البيانات أدناه وسيتم تحويلك فوراً لتنسيق الموعد عبر الواتساب!",
+          labelName: "الاسم الكامل",
+          labelCountryCode: "كود الدولة",
+          labelPhone: "رقم الهاتف / واتساب",
+          optSelect: "اختر الدورة المطلوبة",
+          optQuran: "القرآن والتجويد",
+          optArabic: "اللغة العربية",
+          optKids: "القرآن والعربية للأطفال",
+          optAdults: "القرآن والعربية للكبار",
+          contactBtn: "احصل على الحصة المجانية وانتقل للواتساب",
+          inputNameHolder: "الاسم الكامل",
+          inputPhoneHolder: "رقم الهاتف / واتساب",
+          footerText: "© 2026 أكاديمية الياسين. جميع الحقوق محفوظة.",
+        },
+        fr: {
+          announcementText:
+            "🎁 Offre spéciale limitée : Réservez votre premier cours d'essai 100% GRATUIT sans frais cachés !",
+          navAbout: "À Propos",
+          navJourney: "Comment ça marche",
+          navWhyUs: "Pourquoi Nous",
+          navCourses: "Cours",
+          navFaq: "FAQ",
+          navEnroll: "Essai Gratuit",
+          heroTitle: "Maîtrisez le Coran & l'Arabe en Ligne avec Confiance",
+          heroDesc:
+            "Commencez dès aujourd'hui avec des tuteurs natifs certifiés d'Al-Azhar. Réservez votre cours d'essai gratuit.",
+          heroBtn: "Réserver un Cours d'Essai Gratuit",
+          statStudents: "Élèves Actifs Mondiaux",
+          statTutors: "Professeurs Certifiés d'Al-Azhar",
+          statFreeTrial: "Premier Cours d'Essai Gratuit",
+          aboutTitle: "Bienvenue à Elyassen Academy",
+          aboutQuote:
+            '"Éclairer les cœurs et les esprits avec la lumière du Coran et la beauté de l\'arabe."',
+          aboutP1:
+            "À <strong>Elyassen Academy</strong>, nous croyons que se connecter au Saint Coran et comprendre la langue arabe est un voyage inoubliable.",
+          aboutP2:
+            "Avec des professeurs certifiés d'Al-Azhar et des cours particuliers 1-sur-1, nous aidons les étudiants de tous âges à progresser.",
+          journeyTitle: "Comment Commencer en 3 Étapes Simples ?",
+          journeySubtitle: "C'est plus simple que vous ne le pensez !",
+          step1Title: "Remplir le Formulaire",
+          step1Desc:
+            "Choisissez votre cours et entrez vos coordonnées en quelques secondes sans frais.",
+          step2Title: "Contact & Essai Gratuit",
+          step2Desc:
+            "Vous serez redirigé vers WhatsApp instantanément pour planifier votre session gratuite.",
+          step3Title: "Commencer à Apprendre",
+          step3Desc:
+            "Suivez des cours réguliers et profitez de rapports de progrès continus.",
+          featuresTitle: "Pourquoi Choisir Elyassen Academy?",
+          f1Title: "Professeurs Certifiés",
+          f1Desc: "Tuteurs natifs certifiés d'Al-Azhar avec Ijazah en Tajweed.",
+          f2Title: "Cours Particuliers 1-sur-1",
+          f2Desc:
+            "Plans d'apprentissage personnalisés selon votre propre rythme.",
+          f3Title: "Rapports de Progrès",
+          f3Desc:
+            "Évaluations régulières pour suivre le développement continu.",
+          f4Title: "Horaires Flexibles 24/7",
+          f4Desc:
+            "Choisissez des horaires adaptés à votre emploi du temps partout dans le monde.",
+          coursesTitle: "Nos Programmes Éducatifs",
+          c1Title: "📖 Mémorisation & Récitation du Coran",
+          c1Desc:
+            "Apprenez les règles du Tajweed et mémorisez le Coran avec des experts.",
+          c2Title: "🗣️ Arabe Standard Moderne",
+          c2Desc:
+            "Cours complets couvrant la lecture, l'écriture et l'expression orale.",
+          c3Title: "👶 Coran & Arabe pour Enfants",
+          c3Desc:
+            "Parcours ludiques et interactifs conçus spécialement pour les jeunes.",
+          c4Title: "🎓 Coran & Arabe pour Adultes",
+          c4Desc:
+            "Programmes sur mesure pour adultes et convertis à leur propre rythme.",
+          enrollNowText: "Réserver",
+          reviewsTitle: "Ce Que Disent Parents et Élèves",
+          reviewsSubtitle: "Vraies expériences de notre communauté",
+          r1Text:
+            '"Alhamdulillah, mon fils a mémorisé 2 Juz rapidement. Le cours d\'essai gratuit nous a convaincus!"',
+          r1Info: "Parent du Royaume-Uni",
+          r2Text:
+            "\"En tant que converti, apprendre l'arabe semblait difficile jusqu'à ce que je trouve Elyassen Academy.\"",
+          r2Info: "Étudiant des États-Unis",
+          r3Text:
+            '"Les rapports réguliers me tiennent informé des progrès de ma fille."',
+          r3Info: "Parent du Canada",
+          faqTitle: "Questions Fréquentes",
+          faqSubtitle: "Tout ce que vous devez savoir avant de commencer",
+          faq1Q: "Le premier cours d'essai est-il vraiment gratuit ?",
+          faq1A:
+            "Oui, tout à fait ! La première session est 100% gratuite sans aucun engagement ni frais préalables.",
+          faq2Q: "Quelle plateforme est utilisée pour les cours ?",
+          faq2A:
+            "Les cours se déroulent via Zoom ou Google Meet avec une excellente qualité audio/vidéo.",
+          faq3Q: "Y a-t-il des enseignantes femmes disponibles ?",
+          faq3A:
+            "Oui, l'académie propose des enseignantes certifiées spécialisées pour les femmes et les enfants.",
+          faq4Q: "Comment s'effectue le paiement des forfaits après l'essai ?",
+          faq4A:
+            "Nous proposons des méthodes de paiement sécurisées et flexibles coordonnées facilement via WhatsApp.",
+          formBadge: "⚡ Réservation Gratuite - Sans Frais",
+          contactTitle: "Réservez Votre Cours d'Essai Gratuit",
+          contactSubtitle:
+            "Remplissez le formulaire ci-dessous et contactez-nous sur WhatsApp !",
+          labelName: "Nom Complet",
+          labelCountryCode: "Code Pays",
+          labelPhone: "Numéro de Téléphone / WhatsApp",
+          optSelect: "Sélectionnez le cours",
+          optQuran: "Coran & Tajweed",
+          optArabic: "Langue Arabe",
+          optKids: "Coran & Arabe pour Enfants",
+          optAdults: "Coran & Arabe pour Adultes",
+          contactBtn: "Obtenir le Cours Gratuit & Ouvrir WhatsApp",
+          inputNameHolder: "Nom Complet",
+          inputPhoneHolder: "Numéro de Téléphone / WhatsApp",
+          footerText: "© 2026 Elyassen Academy. Tous Droits Réservés.",
+        },
+      };
+
+      function changeLanguage(lang) {
+        if (!translations[lang]) return;
+        document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+        document.documentElement.lang = lang;
+        const elements = document.querySelectorAll("[data-i18n]");
+        elements.forEach((el) => {
+          const key = el.getAttribute("data-i18n");
+          if (translations[lang][key]) el.innerHTML = translations[lang][key];
+        });
+        const nameInput = document.getElementById("inputName");
+        const phoneInput = document.getElementById("inputPhone");
+        if (nameInput)
+          nameInput.placeholder = translations[lang].inputNameHolder;
+        if (phoneInput)
+          phoneInput.placeholder = translations[lang].inputPhoneHolder;
+      }
+
+      // Canvas background optimization
+      const canvas = document.getElementById("bg-canvas");
+      const ctx = canvas.getContext("2d");
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      resizeCanvas();
+      window.addEventListener("resize", resizeCanvas);
+
+      const particles = Array.from({ length: 30 }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 2 + 1,
+        speedX: (Math.random() - 0.5) * 0.4,
+        speedY: (Math.random() - 0.5) * 0.4,
+        opacity: Math.random() * 0.3 + 0.2,
+      }));
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach((p) => {
+          p.x += p.speedX;
+          p.y += p.speedY;
+          if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+          if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+          ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fill();
+        });
+        requestAnimationFrame(animate);
+      }
+      animate();
+    </script>
+  </body>
+</html>
